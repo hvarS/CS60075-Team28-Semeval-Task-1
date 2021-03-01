@@ -11,16 +11,66 @@ from nltk.stem import WordNetLemmatizer
 # lemmatize words
 lemmatizer = WordNetLemmatizer() 
 def lemmatize(text):
-    lemmas = [lemmatizer.lemmatize(word) for word in word_tokenize(text)] 
-    return " ".join(lemmas)
+	lemmas = [lemmatizer.lemmatize(word) for word in word_tokenize(text)] 
+	return " ".join(lemmas)
 
 # remove stopwords
 def remove_stopwords(text, token):
 	words = [w for w in word_tokenize(text) if (w not in stopwords.words('english')) or w in list(word_tokenize(token))]
 	return " ".join(words)
 
-def preprocess(file):
-	df = pd.read_csv(file, sep="\t", quoting=csv.QUOTE_NONE, encoding='utf-8')
+def read_tsv_single(file, test):
+	File = open(file, "r")
+	data = {"id": [], "corpus": [],  "sentence": [],"token" :[]}
+	if not test:
+		data['complexity']=[]
+	
+	File.readline()
+	while True:
+		line = File.readline()
+		if len(line) == 0:
+			break
+
+		line = line.split()
+		data["id"].append(line[0])
+		data["corpus"].append(line[1])
+		if not test:
+			data["sentence"].append(' '.join(line[1:-2]))
+			data["token"].append(line[-2])
+			data["complexity"].append(float(line[-1]))
+		else:
+			data["sentence"].append(' '.join(line[1:-1]))
+			data["token"].append(line[-1])
+	return pd.DataFrame(data)
+
+
+def read_tsv_multi(file, test):
+	File = open(file, "r")
+	data = {"id": [], "corpus": [],  "sentence": [],
+			"token": []}
+	if not test:
+		data['complexity']=[]
+
+	File.readline()
+	while True:
+		line = File.readline()
+		if len(line) == 0:
+			break
+
+		line = line.split()
+		data["id"].append(line[0])
+		data["corpus"].append(line[1])
+		if not test:
+			data["sentence"].append(' '.join(line[1:-3]))
+			data["token"].append(' '.join(line[-3:-1]))
+			data["complexity"].append(float(line[-1]))
+		else:
+			data["sentence"].append(' '.join(line[1:-2]))
+			data["token"].append(' '.join(line[-2:]))
+	return pd.DataFrame(data)
+
+def preprocess(df):
+	
 	df["token"] = df['token'].astype(str)
 
 	# lower case
@@ -48,14 +98,21 @@ def preprocess(file):
 
 def main(args):
 	assert os.path.exists(args.file), "{} does not exists".format(args.file)
-	preprocessed_df = preprocess(args.file)
+	if(args.single):
+		df = read_tsv_single(args.file, args.test)
+	else:
+		df = read_tsv_multi(args.file, args.test)
+	print(len(df))
+	preprocessed_df = preprocess(df)
 
 	name = args.file.split("/")[-1].split(".")[0]+"_preprocessed"
-	preprocessed_df.to_csv(os.path.join("data/preprocessed",name+".csv"))
+	preprocessed_df.to_csv(os.path.join("data/preprocessed",name+".csv"), index=False)
 
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
 	parser.add_argument("--file", type=str, required=True, help="df file path")
+	parser.add_argument("--single",action='store_true', help="df file path")
+	parser.add_argument("--test",action='store_true', help="df file path")
 	args = parser.parse_args()
 	main(args)
