@@ -1,4 +1,5 @@
 import os
+import csv
 import nltk
 import string
 import argparse
@@ -14,12 +15,13 @@ def lemmatize(text):
     return " ".join(lemmas)
 
 # remove stopwords
-def remove_stopwords(text):
-	words = [w for w in word_tokenize(text) if w not in stopwords.words('english')]
+def remove_stopwords(text, token):
+	words = [w for w in word_tokenize(text) if (w not in stopwords.words('english')) or w in list(word_tokenize(token))]
 	return " ".join(words)
 
 def preprocess(file):
-	df = pd.read_csv(file, sep="\t")
+	df = pd.read_csv(file, sep="\t", quoting=csv.QUOTE_NONE, encoding='utf-8')
+	df["token"] = df['token'].astype(str)
 
 	# lower case
 	df['sentence'] = df['sentence'].apply(lambda x: x.lower())
@@ -36,7 +38,7 @@ def preprocess(file):
 	except LookupError:
 		nltk.download('stopwords')
 
-	df['sentence'] = df.apply(lambda x: remove_stopwords(x['sentence']) if x['sentence']!=x['token'] else x['sentence'], axis=1)
+	df['sentence'] = df.apply(lambda x: remove_stopwords(x['sentence'], x['token']) , axis=1)
 	
 	# lemmatize
 	df['sentence'] = df['sentence'].apply(lambda x: lemmatize(x))
@@ -47,8 +49,11 @@ def preprocess(file):
 def main(args):
 	assert os.path.exists(args.file), "{} does not exists".format(args.file)
 	preprocessed_df = preprocess(args.file)
-	print(preprocessed_df.iloc[0])
-	
+
+	name = args.file.split("/")[-1].split(".")[0]+"_preprocessed"
+	preprocessed_df.to_csv(os.path.join("data/preprocessed",name+".csv"))
+
+
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
 	parser.add_argument("--file", type=str, required=True, help="df file path")
