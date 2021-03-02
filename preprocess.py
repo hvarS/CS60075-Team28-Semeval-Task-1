@@ -35,11 +35,11 @@ def read_tsv_single(file, test):
 		data["id"].append(line[0])
 		data["corpus"].append(line[1])
 		if not test:
-			data["sentence"].append(' '.join(line[1:-2]))
+			data["sentence"].append(' '.join(line[2:-2]))
 			data["token"].append(line[-2])
 			data["complexity"].append(float(line[-1]))
 		else:
-			data["sentence"].append(' '.join(line[1:-1]))
+			data["sentence"].append(' '.join(line[2:-1]))
 			data["token"].append(line[-1])
 	return pd.DataFrame(data)
 
@@ -61,11 +61,11 @@ def read_tsv_multi(file, test):
 		data["id"].append(line[0])
 		data["corpus"].append(line[1])
 		if not test:
-			data["sentence"].append(' '.join(line[1:-3]))
+			data["sentence"].append(' '.join(line[2:-3]))
 			data["token"].append(' '.join(line[-3:-1]))
 			data["complexity"].append(float(line[-1]))
 		else:
-			data["sentence"].append(' '.join(line[1:-2]))
+			data["sentence"].append(' '.join(line[2:-2]))
 			data["token"].append(' '.join(line[-2:]))
 	return pd.DataFrame(data)
 
