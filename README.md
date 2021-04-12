@@ -1,5 +1,8 @@
 # CS60075-Team28-Task-1
 
+## Presentation Video
+Presentation can be found [here](https://drive.google.com/file/d/1vKABOiaYSVp2Cznagl5QUE5Xp9pWhhoF/view?usp=sharing)
+
 ## Steup the repo on colab
 To execute code, please clone it in your drive. To clone it, just follow these simple steps for adding ssh key to your github account:
 * Make a copy and execute this colab [file](https://colab.research.google.com/drive/13XQR16ltagN0QYB2u8yxc66d7yV2U10f?usp=sharing). The same file is also available here - https://github.com/hvarS/CS60075-Team28-Task-1/blob/main/setup_on_colab.ipynb 
