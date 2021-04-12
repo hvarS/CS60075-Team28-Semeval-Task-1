@@ -8,7 +8,7 @@ To execute code, please clone it in your drive. To clone it, just follow these s
 * Make a copy and execute this colab [file](https://colab.research.google.com/drive/13XQR16ltagN0QYB2u8yxc66d7yV2U10f?usp=sharing). The same file is also available here - https://github.com/hvarS/CS60075-Team28-Task-1/blob/main/setup_on_colab.ipynb 
 
 ## Repo Details
-All the .ipynb python notebooks of preprocessing, extracting features and eperimentations can be executed easily after cloning the repository to your drive. Relevant PATHS are already given, and works if above mentioned steps are followed for cloning. 
+All the .ipynb python notebooks of preprocessing, extracting features and eperimentations can be executed easily after cloning the repository to your drive. Relevant PATHS are already given, and works if above mentioned steps are followed for cloning. In addition to this, the submitted results in the report can be reproduced using the submission files below.
 
 ### Final submission files
 We have included different properly commented files, which represents out scores we reported from different approaches for better readability:
