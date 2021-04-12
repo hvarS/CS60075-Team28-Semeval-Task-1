@@ -4,12 +4,8 @@
 To execute code, please clone it in your drive. To clone it, just follow these simple steps for adding ssh key to your github account:
 * Make a copy and execute this colab [file](https://colab.research.google.com/drive/13XQR16ltagN0QYB2u8yxc66d7yV2U10f?usp=sharing). The same file is also available here - https://github.com/hvarS/CS60075-Team28-Task-1/blob/main/setup_on_colab.ipynb 
 
-## Scores Screenshot
-To be updated later, once codalab functions properly again.\
-However, the evaluate function produces same scores, which we have verifed by a submission. These scores can be found in the report.
-
 ## Repo Details
-All the .ipynb python notebooks of preprocessing, extracting features and eperimentations can be executed after cloning the repository 
+All the .ipynb python notebooks of preprocessing, extracting features and eperimentations can be executed easily after cloning the repository to your drive. Relevant PATHS are already given, and works if above mentioned steps are followed for cloning. 
 
 ### Final submission files
 We have included different properly commented files, which represents out scores we reported from different approaches for better readability:
@@ -18,7 +14,7 @@ We have included different properly commented files, which represents out scores
 * `attention_multi.ipynb` : Task2 scores using attention-based approach
 * `attention_single.ipynb`: Task1 scores using attention-based approach
 
-Last two files also consists of other experimentations, i.e using BERT instead of Bi-LSTM, not using anything expect dense layers for attention. But we did'nt report them, as we got better results using Bi-LSTM. The code is still available at the end of the files.\
+Last two files also consists of other experimentations, i.e using BERT instead of Bi-LSTM, not using anything expect dense layers for attention, using CNN+Regression. But we did'nt report them, as we got better results using Bi-LSTM. The code is still available at the end of the files.
 
 **Files are better viewed using colab, Table of contents**
 
@@ -35,6 +31,10 @@ Here we describe other individual files and folder:
 * `references/`: contains labels for evaluate
 * `predictions/`: contains the output from experimentations
 * `corpus.zip`: contains relevant corpus files
+
+## Scores Screenshot
+Task1 Submission![image](https://user-images.githubusercontent.com/43145576/114409836-7b571080-9bc8-11eb-9581-750f32e48a03.png)
+Task2 Submission![image](https://user-images.githubusercontent.com/43145576/114409984-9cb7fc80-9bc8-11eb-8a50-b3f42069f6f2.png)
 
 ### Older experiments
 Conda env setup is only required for initial preprocessing, which was done earlier. We shifted to colab after this. 
